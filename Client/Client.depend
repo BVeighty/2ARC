@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1528115971 source:/home/quentin/Projets/Client/main.cpp
+	<iostream>
+	"imports.h"
+
+1527843448 /home/quentin/Projets/Client/imports.h
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<unistd.h>
+

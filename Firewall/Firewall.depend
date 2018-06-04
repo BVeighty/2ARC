@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1528118194 source:/home/quentin/Projets/Firewall/main.cpp
+	<iostream>
+	"imports.h"
+
+1527843448 /home/quentin/Projets/Firewall/imports.h
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<unistd.h>
+
