@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1528189238 source:c:\users\romai\documents\code\c++\2arc\test2acr\main.cpp
+	<iostream>
+	<fstream>
+	"ip_regles.h"
+	"port_regles.h"
+
+1528189186 source:c:\users\romai\documents\code\c++\2arc\test2acr\src\ip_regles.cpp
+	"ip_regles.h"
+	<iostream>
+	<cstdio>
+	<fstream>
+
+1528188174 c:\users\romai\documents\code\c++\2arc\test2acr\include\ip_regles.h
+	<string>
+
+1528189238 source:c:\users\romai\documents\code\c++\2arc\test2acr\src\port_regles.cpp
+	"port_regles.h"
+	<iostream>
+	<cstdio>
+	<fstream>
+
+1528129675 c:\users\romai\documents\code\c++\2arc\test2acr\include\port_regles.h
+	<string>
+
