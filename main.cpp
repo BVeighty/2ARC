@@ -21,7 +21,6 @@ int main() {
   char fileLocation[254];
   cout << "File Location ? ";
   cin >> fileLocation;
-  cout << fileLocation;
   descr = pcap_open_offline(fileLocation, errbuf);
   pcap_loop(descr, 0, packetHandler, NULL);
 
@@ -58,6 +57,8 @@ void packetHandler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_c
   string sourceIp, destIp;
   int port;
   string sourcePort, destPort;
+  ip_regles ipRules;
+  port_regles portRules;
 
   ethernetHeader = (struct ether_header*)packet;
   if (ntohs(ethernetHeader->ether_type) == ETHERTYPE_IP) {
@@ -75,6 +76,7 @@ void packetHandler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_c
           destPort = intConverter(port);
 
           cout << sourceIp << ":" << sourcePort << " -> " << destIp << ":" << destPort << endl;
+          cout << "Ip : " << ipRules.get_regle(sourceIp) << " | Port : " << portRules.get_regle(destPort) << endl;
       }
   }
 }
