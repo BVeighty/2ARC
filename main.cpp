@@ -47,6 +47,18 @@ string charConverter(char a[])
     return result;
 }
 
+string readrule(int a)
+{
+	if(a == 0)
+	{
+		return "Granted";
+	}
+	if(a == 1)
+	{
+		return "Denied";
+	}
+}
+
 void packetHandler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_char* packet) {
   const struct ether_header* ethernetHeader;
   const struct ip* ipHeader;
@@ -74,7 +86,9 @@ void packetHandler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_c
           destPort = intConverter(port);
 
           cout << sourceIp << ":" << sourcePort << " -> " << destIp << ":" << destPort << endl;
-          cout << "Ip : " << ipRules.get_regle(sourceIp) << " | Port : " << portRules.get_regle(destPort) << endl;
+          cout << "Ip : " << readrule(ipRules.get_regle(sourceIp)) << " | Port : " << readrule(portRules.get_regle(destPort)) << endl;
       }
   }
 }
+
+
