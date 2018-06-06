@@ -21,7 +21,6 @@ int main() {
   char fileLocation[254];
   cout << "File Location ? ";
   cin >> fileLocation;
-  cout << fileLocation;
   descr = pcap_open_offline(fileLocation, errbuf);
   pcap_loop(descr, 0, packetHandler, NULL);
 
