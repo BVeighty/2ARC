@@ -8,7 +8,7 @@ using namespace std;
 
 port_regles::port_regles()
 {
-    string regles = "port.conf";
+    string regles = "./config/port.conf";
     int posi =0;
 
     fstream conf(regles.c_str());
