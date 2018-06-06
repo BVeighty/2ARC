@@ -18,13 +18,42 @@ int main() {
   pcap_t *descr;
   char errbuf[PCAP_ERRBUF_SIZE];
 
-  char fileLocation[254];
-  cout << "File Location ? ";
-  cin >> fileLocation;
-  descr = pcap_open_offline(fileLocation, errbuf);
-  pcap_loop(descr, 0, packetHandler, NULL);
+  int mode;
+  cout << "Do you want to open a local capture file and test the rules theoretically? (0) \nOr do you want to use the program in real time? (1) \n -> Your choice? ";
+  cin >> mode;
 
-  return 0;
+    if(mode) {
+        char *dev;
+
+        dev = pcap_lookupdev(errbuf);
+
+        if (dev == NULL) {
+            cout << "pcap_lookupdev() failed: " << errbuf << endl;
+            return 1;
+        }
+
+        descr = pcap_open_live(dev, BUFSIZ, 0, -1, errbuf);
+
+        if (descr == NULL) {
+            cout << "pcap_open_live() failed: " << errbuf << endl;
+            return 1;
+        }
+
+    } else {
+        char fileLocation[254];
+        cout << "File Location ? ";
+        cin >> fileLocation;
+
+        descr = pcap_open_offline("/home/administrator/Downloads/test.pcapng", errbuf);
+
+        if (descr == NULL) {
+            cout << "pcap_open_live() failed: " << errbuf << endl;
+            return 1;
+        }
+    }
+
+    pcap_loop(descr, 0, packetHandler, NULL);
+    return 0;
 }
 
 string intConverter(int a)
@@ -47,7 +76,7 @@ string charConverter(char a[])
     return result;
 }
 
-string readrule(int a)
+string readRule(int a)
 {
 	if(a == 0)
 	{
@@ -86,7 +115,7 @@ void packetHandler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_c
           destPort = intConverter(port);
 
           cout << sourceIp << ":" << sourcePort << " -> " << destIp << ":" << destPort << endl;
-          cout << "Ip : " << readrule(ipRules.get_regle(sourceIp)) << " | Port : " << readrule(portRules.get_regle(destPort)) << endl;
+          cout << "Ip : " << readRule(ipRules.get_regle(sourceIp)) << " | Port : " << readRule(portRules.get_regle(destPort)) << endl;
       }
   }
 }
