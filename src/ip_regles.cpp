@@ -7,7 +7,7 @@ using namespace std;
 
 ip_regles::ip_regles()
 {
-    string regles = "ips.conf";
+    string regles = "./config/ips.conf";
     int posi =0;
 
     fstream conf(regles.c_str());
