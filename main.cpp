@@ -2,12 +2,12 @@
 #include <pcap.h>
 #include <net/ethernet.h>
 #include <netinet/ip.h>
-#include <netinet/in.h>
+//#include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string>
 #include <sstream>
 
 using namespace std;
