@@ -35,7 +35,11 @@
 		<Linker>
 			<Add library="libpcap" />
 		</Linker>
+		<Unit filename="include/ip_regles.h" />
+		<Unit filename="include/port_regles.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/ip_regles.cpp" />
+		<Unit filename="src/port_regles.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
