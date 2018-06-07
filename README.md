@@ -2,10 +2,10 @@
 
 ## Avant de compiler le firewall
 
-Installer *libnfnetlink*:
+Installer *libnfnetlink* :
 https://netfilter.org/projects/libnfnetlink/downloads.html
 
-Installer *libnetfilter_queue*:
+Installer *libnetfilter_queue* :
 https://netfilter.org/projects/libnetfilter_queue/downloads.html
 
 Après décompression:
@@ -19,7 +19,7 @@ sudo make install
 
 ## Avant d'exécuter le firewall
 
-Configurer Iptables :
+Configurer *iptables* :
 ```
 sudo iptables -A OUTPUT -p tcp -j NFQUEUE –queue-num 0
 
