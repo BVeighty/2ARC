@@ -15,7 +15,8 @@ ip_regles::ip_regles()
     if(conf)
     {
         string content;
-        while(getline(conf, content)) // recuperation du nombre de regles écrite dans le fichier de configuration
+        // recuperation du nombre de regles écrite dans le fichier de configuration
+        while(getline(conf, content)) 
         {
                 if(content.length() == 0 )
                 {
@@ -40,7 +41,8 @@ ip_regles::ip_regles()
 
 
     fstream recup(regles.c_str());
-    if(recup) // création du tableau de regle et traitement des donnée des fichier de regles
+    // création du tableau de regle et traitement des donnée des fichier de regles
+    if(recup) 
     {
         string content;
         table = new string* [nbligne];
@@ -67,10 +69,10 @@ ip_regles::ip_regles()
                 }
                 else
                 {
-
+                    // traitement d'une ligne de rêgle non commenté
                     string ip ="";
                     string regle ="";
-                    for(int i = 0; i < content.length(); i++) // traitement d'une ligne de rêgle non commenté
+                    for(int i = 0; i < content.length(); i++) 
                     {
                         if(( 48 <= int(content.at(i)))and( int(content.at(i)) <= 57))
                         {
@@ -89,7 +91,8 @@ ip_regles::ip_regles()
                         {
                             regle = regle + content.at(i);
                         }
-                    }//remplisage du tableau de regles
+                    }
+                    //remplisage du tableau de regles
                     table[posi][0] = ip;
                     table[posi][1] = regle;
                     if(posi < nbligne)
@@ -108,9 +111,10 @@ ip_regles::ip_regles()
 
 ip_regles::~ip_regles()
 {
-    //delete this;
+    
 }
 
+//methode de recuperation des regles
 int ip_regles::get_regle(string ip)
 {
     for(int i = 0 ; i < nbligne; i++)

@@ -15,16 +15,19 @@
 
 using namespace std;
 
-
+//fontion de filtrage des paquets via les regles
 static int validation(struct nfq_q_handle *qh, uint32_t id, string ip, string port)
 {
+    //récupération des regles
     ip_regles ipRules;
     port_regles portRules;
 
+    
     if(portRules.get_regle(port) == 1)
     {   
         ipRules.~ip_regles();
         portRules.~port_regles();
+        //drop le paquet car sur un port fermé
         return nfq_set_verdict(qh, id, NF_DROP, 0, NULL);
     }
     else
@@ -33,6 +36,7 @@ static int validation(struct nfq_q_handle *qh, uint32_t id, string ip, string po
         {
             ipRules.~ip_regles();
             portRules.~port_regles();
+            //drop du paquet car proveant d'une adresse non valide
             return nfq_set_verdict(qh, id, NF_DROP, 0, NULL);
         }
         
@@ -40,6 +44,7 @@ static int validation(struct nfq_q_handle *qh, uint32_t id, string ip, string po
         {
             ipRules.~ip_regles();
             portRules.~port_regles();
+            //acceptation du paquet
             return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
         }
         
@@ -48,19 +53,7 @@ static int validation(struct nfq_q_handle *qh, uint32_t id, string ip, string po
 }
 
 
-static uint32_t get_id(struct nfq_data *tb)
-{
-    int id = 0;
-    struct nfqnl_msg_packet_hdr *ph;
-	struct nfqnl_msg_packet_hw *hwph;
-    unsigned char *data, *secdata;
-
-    ph = nfq_get_msg_packet_hdr(tb);
-    id = ntohl(ph->packet_id);
-
-    return id;
-}
-
+//fonction de verification des paquet entrant
 static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 	      struct nfq_data *nfa, void *data)
 {
@@ -90,6 +83,8 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 
 int main(int argc, char const *argv[])
 {
+    /*initialisation des différente variable necessaire a la création de la fille d'attente des paquets
+      et des variables de recupérations des paquets*/
     struct nfq_handle *h;
 	struct nfq_q_handle *qh;
 	int fd;
@@ -97,6 +92,8 @@ int main(int argc, char const *argv[])
 	uint32_t queue = 0;
     char buf[4096];
     
+
+    //ouverture de la librairie
     h = nfq_open();
     if(!h)
     {
@@ -104,19 +101,25 @@ int main(int argc, char const *argv[])
         exit(1);
     }
     
+    //fermeture du soket par sécuritée
     nfq_unbind_pf(h, AF_INET);
+    //ouverture du socket avec la couche kernel
     nfq_bind_pf(h, AF_INET);
 
+
+    //création de fille d'atente
     qh = nfq_create_queue(h, queue, &cb, NULL);
     if(!qh)
     {
         cout << "Fatal Error: failed to creat queue" << endl;
         exit(1);
     }
+    //mode de copy des paquet ici complet pour utilisation lors du filtrage
     nfq_set_mode(qh, NFQNL_COPY_PACKET, 0xffff);
 
     fd = nfq_fd(h);
 
+    //boucle de traitement des paquet
     while(1)
     {
         if((rv = recv(fd, buf, sizeof(buf),0)) >= 0)
@@ -124,16 +127,6 @@ int main(int argc, char const *argv[])
             nfq_handle_packet(h,buf, rv);
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
     return 0;
 }
