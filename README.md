@@ -2,13 +2,11 @@
 
 ## Avant de compiler le firewall
 
-Installer *libnfnetlink* :
-https://netfilter.org/projects/libnfnetlink/downloads.html
+Installer *libnfnetlink* : https://netfilter.org/projects/libnfnetlink/downloads.html
 
-Installer *libnetfilter_queue* :
-https://netfilter.org/projects/libnetfilter_queue/downloads.html
+Installer *libnetfilter_queue* : https://netfilter.org/projects/libnetfilter_queue/downloads.html
 
-Après décompression:
+Après décompression :
 ```
 ./configure
 
