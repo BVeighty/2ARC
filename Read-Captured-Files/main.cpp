@@ -44,7 +44,7 @@ int main() {
         cout << "File Location ? ";
         cin >> fileLocation;
 
-        descr = pcap_open_offline("/home/administrator/Downloads/test.pcapng", errbuf); // Ouvre un fichier pcap
+        descr = pcap_open_offline(fileLocation, errbuf); // Ouvre un fichier pcap
 
         if (descr == NULL) {
             cout << "pcap_open_live() failed: " << errbuf << endl;
